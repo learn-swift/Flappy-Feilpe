@@ -14,18 +14,40 @@ enum Layer : CGFloat {
 	case Player
 }
 class GameScene: SKScene {
-	let wordNode = SKNode()
+	
+	let worldNode = SKNode()
+	var playableStart: CGFloat = 0
+	var playableHeight: CGFloat = 0
 	
 	override func didMoveToView(view: SKView) {
-		addChild(wordNode)
+		addChild(worldNode)
 		setupBackground()
+		setupForeground()
 	}
-	func setupBackground(){
+	
+	// MARK: Setup methods
+	
+	func setupBackground() {
+		
 		let background = SKSpriteNode(imageNamed: "Background")
 		background.anchorPoint = CGPoint(x: 0.5, y: 1.0)
 		background.position = CGPoint(x: size.width/2, y: size.height)
 		background.zPosition = Layer.Background.rawValue
-		wordNode.addChild(background)
+		worldNode.addChild(background)
+		
+		playableStart = size.height - background.size.height
+		playableHeight = background.size.height
+		
+	}
+	
+	func setupForeground() {
+		
+		let foreground = SKSpriteNode(imageNamed: "Ground")
+		foreground.anchorPoint = CGPoint(x: 0, y: 1)
+		foreground.position = CGPoint(x: 0, y: playableStart)
+		foreground.zPosition = Layer.Foreground.rawValue
+		worldNode.addChild(foreground)
+		
 	}
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		
