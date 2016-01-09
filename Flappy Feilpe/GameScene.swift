@@ -25,8 +25,6 @@ class GameScene: SKScene {
 		setupForeground()
 	}
 	
-	// MARK: Setup methods
-	
 	func setupBackground() {
 		
 		let background = SKSpriteNode(imageNamed: "Background")
